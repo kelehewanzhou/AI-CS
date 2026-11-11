@@ -1,0 +1,7 @@
+{
+  "status": "approved",
+  "reviewer": "张教授（教学专家）",
+  "reviewed_at": "2024-11-15",
+  "checksum": "a895ee8e19cdcd511dae3dc8761bafe72c935f501ff3161d275e402f6bd8c59b",
+  "note": "已完成教材核对，5个节点、3条关系、5道题目的内容、教材出处和答案均已确认。此为MVP测试数据集。"
+}

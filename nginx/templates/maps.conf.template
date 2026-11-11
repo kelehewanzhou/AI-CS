@@ -1,0 +1,5 @@
+map $http_origin $origin_allowed {
+    default 0;
+${ORIGIN_ENTRIES}
+}
+${TRUSTED_PROXY_ENTRIES}

@@ -1,0 +1,10 @@
+[Unit]
+Description=KG Learn backup at 02:00 Asia/Shanghai
+
+[Timer]
+OnCalendar=*-*-* 02:00:00 Asia/Shanghai
+Persistent=true
+Unit=kglearn-backup.service
+
+[Install]
+WantedBy=timers.target

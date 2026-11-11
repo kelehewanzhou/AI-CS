@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "question_id": "Q001",
+      "type": "choice",
+      "content": "TLB的主要作用是什么？",
+      "options": [
+        {"key": "A", "text": "加速虚拟地址到物理地址的转换"},
+        {"key": "B", "text": "扩大物理内存容量"}
+      ],
+      "answer_key": "A",
+      "difficulty": 1,
+      "related_node_ids": ["CO03", "OS02"]
+    },
+    {
+      "question_id": "Q002",
+      "type": "choice",
+      "content": "虚拟内存技术的主要优势是什么？",
+      "options": [
+        {"key": "A", "text": "进程地址空间独立且可超过物理内存"},
+        {"key": "B", "text": "提高CPU运算速度"}
+      ],
+      "answer_key": "A",
+      "difficulty": 1,
+      "related_node_ids": ["CO03", "OS02"]
+    },
+    {
+      "question_id": "Q003",
+      "type": "choice",
+      "content": "TLB缺失时需要访问什么？",
+      "options": [
+        {"key": "A", "text": "页表"},
+        {"key": "B", "text": "磁盘"}
+      ],
+      "answer_key": "A",
+      "difficulty": 1,
+      "related_node_ids": ["CO03", "OS02"]
+    },
+    {
+      "question_id": "Q004",
+      "type": "choice",
+      "content": "以下哪项是虚拟内存的核心机制？",
+      "options": [
+        {"key": "A", "text": "地址映射和按需调页"},
+        {"key": "B", "text": "增加物理内存条"}
+      ],
+      "answer_key": "A",
+      "difficulty": 1,
+      "related_node_ids": ["CO03", "OS02"]
+    },
+    {
+      "question_id": "Q005",
+      "type": "choice",
+      "content": "TLB是一种什么类型的存储器？",
+      "options": [
+        {"key": "A", "text": "高速缓存"},
+        {"key": "B", "text": "磁盘"}
+      ],
+      "answer_key": "A",
+      "difficulty": 1,
+      "related_node_ids": ["CO03", "OS02"]
+    }
+  ]
+}

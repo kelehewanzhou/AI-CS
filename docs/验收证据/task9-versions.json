@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-11-10T21:01:00.568369+08:00",
+  "source_artifacts": {
+    "backend/requirements.lock": {
+      "sha256": "657c7371413d87dd47ae46efcb1d0e697d1902086e43bc47d0d536a054280205"
+    },
+    "web/pnpm-lock.yaml": {
+      "sha256": "ce39e384cb4c77b4d5a3fdfd5facd93f10c747999f8a464fbd091d2a761cae90"
+    },
+    "docker-compose.yml": {
+      "sha256": "c038a5802107fdcd521443b1699b310cadd7923853b50dd9c816a356f58ebdac"
+    },
+    "docker-compose.tls.yml": {
+      "sha256": "80f380b2a6649f0aa1ef6a6679b52adff3ecf68fe58a592821a7babfd728f630"
+    },
+    "backend/Dockerfile": {
+      "sha256": "390cc9c4de15e1a9ebadc249037a7dd5641f5b65229f9c3240988fd0839ebb06"
+    },
+    "nginx/Dockerfile": {
+      "sha256": "c0fd5ab4065012df2f150c570623734245dc71b0e0fca9e6bfae674038d024e0"
+    }
+  },
+  "pinned_base_images": [
+    "nginx:1.30.6@sha256:42c68eab6f7e22611786a9fe1d1c019e275c50185bd54b8f75dc2b9184322703",
+    "node:24-alpine@sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8",
+    "postgres:17@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f",
+    "python:3.13-slim@sha256:e48f59cdba69a3cbd9ed2cf0f348d90d45a8d350d98134cf1070bc106ee9ed90"
+  ],
+  "application_image_ids": "Not built: Docker daemon unavailable; record IDs and registry digests on deployment host"
+}

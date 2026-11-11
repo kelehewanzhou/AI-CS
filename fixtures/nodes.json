@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "node_id": "CO03",
+      "course_code": "CO",
+      "title": "TLB",
+      "chapter_scope": "第3章 存储系统",
+      "description": "Translation Lookaside Buffer，快速地址转换缓存",
+      "aliases": ["快表"],
+      "scope_tags": ["内存管理", "地址转换"]
+    },
+    {
+      "node_id": "OS02",
+      "course_code": "OS",
+      "title": "虚拟内存",
+      "chapter_scope": "第4章 内存管理",
+      "description": "虚拟内存机制与地址空间抽象",
+      "aliases": [],
+      "scope_tags": ["内存"]
+    },
+    {
+      "node_id": "OS03",
+      "course_code": "OS",
+      "title": "页表",
+      "chapter_scope": "第4章 内存管理",
+      "description": "虚拟地址到物理地址的映射表",
+      "aliases": [],
+      "scope_tags": ["内存"]
+    },
+    {
+      "node_id": "DS04",
+      "course_code": "DS",
+      "title": "图遍历",
+      "chapter_scope": "第7章 图",
+      "description": "图的深度优先和广度优先遍历算法",
+      "aliases": ["DFS", "BFS"],
+      "scope_tags": ["算法"]
+    },
+    {
+      "node_id": "CN05",
+      "course_code": "CN",
+      "title": "OSPF路由",
+      "chapter_scope": "第5章 网络层",
+      "description": "开放最短路径优先路由协议",
+      "aliases": [],
+      "scope_tags": ["路由"]
+    }
+  ]
+}

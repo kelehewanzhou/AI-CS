@@ -1,0 +1,11 @@
+\set ON_ERROR_STOP on
+\getenv app_password DB_PASSWORD
+\getenv migration_password DB_MIGRATION_PASSWORD
+CREATE ROLE kglearn_migrator LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD :'migration_password';
+CREATE ROLE kglearn_app LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD :'app_password';
+ALTER DATABASE kglearn OWNER TO kglearn_migrator;
+REVOKE ALL ON DATABASE kglearn FROM PUBLIC;
+GRANT CONNECT ON DATABASE kglearn TO kglearn_app;
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+GRANT ALL ON SCHEMA public TO kglearn_migrator;
+GRANT USAGE ON SCHEMA public TO kglearn_app;

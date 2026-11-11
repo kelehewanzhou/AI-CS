@@ -1,0 +1,12 @@
+[Unit]
+Description=KG Learn daily database backup and encrypted offsite copy
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/kglearn
+EnvironmentFile=/etc/kglearn-backup.env
+ExecStart=/usr/bin/python3 /opt/kglearn/scripts/manage.py backup --offsite
+UMask=0077
+# Connect failed service status to the institution's existing operations channel.

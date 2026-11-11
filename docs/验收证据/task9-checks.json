@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-10T20:58:02.460541+08:00",
+  "backend_tests": {
+    "passed": 91,
+    "native_tests_skipped_in_default_suite": 13,
+    "warning": "Existing Starlette TestClient/httpx deprecation"
+  },
+  "typescript": "passed --noEmit",
+  "next_static_build": "passed, Next.js 16.4.5",
+  "bash_syntax": "passed",
+  "python_compileall": "passed"
+}

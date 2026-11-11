@@ -25,3 +25,13 @@ coverage/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Operational data and one-time credentials
+backup/
+credentials/
+.runtime/
+backend/tmp/
+*.dump
+*.dump.*
+*.gpg
+*.tsbuildinfo

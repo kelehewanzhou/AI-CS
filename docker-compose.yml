@@ -1,0 +1,119 @@
+name: kglearn
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+x-api-environment: &api-environment
+  DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL in .env}
+  ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?Set ALLOWED_ORIGINS in .env}
+  SESSION_SECRET_KEY: ${SESSION_SECRET_KEY:?Set SESSION_SECRET_KEY in .env}
+  SESSION_COOKIE_NAME: kglearn_session
+  ENVIRONMENT: ${ENVIRONMENT:-production}
+  PYTHONUNBUFFERED: "1"
+
+services:
+  postgres:
+    image: postgres:17@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f
+    environment:
+      POSTGRES_DB: kglearn
+      POSTGRES_USER: kglearn_admin
+      POSTGRES_PASSWORD: ${DB_ADMIN_PASSWORD:?Set DB_ADMIN_PASSWORD in .env}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      DB_MIGRATION_PASSWORD: ${DB_MIGRATION_PASSWORD:?Set DB_MIGRATION_PASSWORD in .env}
+      TZ: Asia/Shanghai
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+      - ./scripts/backup.sh:/opt/kglearn/backup.sh:ro
+      - ./scripts/restore.sh:/opt/kglearn/restore.sh:ro
+      - ./database/verify_restore.sql:/opt/kglearn/verify_restore.sql:ro
+      - ./backup:/backup
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U kglearn_admin -d kglearn"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    logging: *logging
+    restart: unless-stopped
+
+  migrate:
+    image: kglearn-backend:${VERSION:-v1.0.0}
+    pull_policy: never
+    environment:
+      <<: *api-environment
+      DATABASE_URL: ${MIGRATION_DATABASE_URL:?Set MIGRATION_DATABASE_URL in .env}
+    command: [python, -m, cli.migrate]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+    logging: *logging
+
+  seed-import:
+    image: kglearn-backend:${VERSION:-v1.0.0}
+    pull_policy: never
+    environment:
+      <<: *api-environment
+      DATABASE_URL: ${MIGRATION_DATABASE_URL:?Set MIGRATION_DATABASE_URL in .env}
+      SEED_OPERATOR: ${SEED_OPERATOR:-deploy@system}
+    volumes:
+      - ${SEED_DIR:-./fixtures}:/seeds:ro
+    command: [python, -m, cli.release_seed, /seeds]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: "no"
+    logging: *logging
+
+  backend:
+    image: kglearn-backend:${VERSION:-v1.0.0}
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment: *api-environment
+    command: [python, -m, uvicorn, main:app, --host, 0.0.0.0, --port, "8000", --workers, "1", --no-access-log, --no-proxy-headers]
+    expose: ["8000"]
+    volumes:
+      - ./credentials:/app/backend/tmp
+    depends_on:
+      seed-import:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready', timeout=3).read()"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    logging: *logging
+    restart: unless-stopped
+
+  nginx:
+    image: kglearn-nginx:${VERSION:-v1.0.0}
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    environment:
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?Set ALLOWED_ORIGINS in .env}
+      NGINX_SERVER_NAME: ${NGINX_SERVER_NAME:-localhost}
+      NGINX_TLS: ${NGINX_TLS:-0}
+      NGINX_TRUSTED_PROXIES: ${NGINX_TRUSTED_PROXIES:-}
+    ports:
+      - "127.0.0.1:${HTTP_PORT:-8080}:80"
+    volumes:
+      - ./.runtime:/var/run/kglearn:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, http://localhost/nginx-live]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    logging: *logging
+    restart: unless-stopped
+
+volumes:
+  pgdata:

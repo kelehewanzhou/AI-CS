@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-10T20:57:52.979927+08:00",
+  "mode": "isolated native PostgreSQL/Nginx; Docker not exercised",
+  "postgres_version": "postgres (PostgreSQL) 17.11",
+  "nginx_version": "nginx version: nginx/1.30.6",
+  "postgres_and_proxy_tests": "13 passed in 26.23s",
+  "browser_acceptance": {
+    "student_steps": [
+      "登录页输入账号",
+      "首次改密跳转",
+      "改密撤销会话后重新登录图谱",
+      "选择CO课程查询",
+      "点击图谱CO03节点",
+      "查看节点/学习状态/关系",
+      "开始练习",
+      "提交Q001答案A并重试",
+      "查看正确反馈",
+      "查看事件及节点状态",
+      "退出后受保护页面回到登录"
+    ],
+    "teacher_steps": [
+      "教师登录并完成首次改密",
+      "访问教师验收页",
+      "查看内容数量",
+      "查看证据分布",
+      "教师退出"
+    ],
+    "checks": [
+      "丢失已提交响应后重试复用UUID，历史仅1条",
+      "学生访问教师摘要显示无权提示",
+      "问答三种业务状态均可显示",
+      "无未处理浏览器脚本异常；刷新保留查询参数和会话"
+    ],
+    "browser_version": "152.0.4191.66",
+    "mode": "headless Microsoft Edge, real exported pages + Nginx + PostgreSQL"
+  },
+  "restore_seconds": 4.837,
+  "restored_counts_and_foreign_keys": [
+    "NOTICE:  database \"kglearn_restore_test\" does not exist, skipping",
+    "alembic_version\t1",
+    "courses\t4",
+    "exercise_attempts\t2",
+    "exercise_related_nodes\t10",
+    "exercises\t5",
+    "import_runs\t1",
+    "knowledge_edges\t3",
+    "knowledge_nodes\t5",
+    "learning_events\t5",
+    "qa_records\t6",
+    "sessions\t8",
+    "users\t5",
+    "Restore verified: kglearn_restore_test (counts and all foreign keys)"
+  ],
+  "tampered_backup_rejected": true,
+  "maintenance_and_upstream_failure": "503 UNAVAILABLE, matching request_id; process probe remains 200",
+  "log_privacy": "No tested passwords, Cookie header, request body or stack trace in application/access logs",
+  "total_seconds": 62.243,
+  "limits": [
+    "Docker image build, Compose orchestration and Linux container startup not run",
+    "Production certificate and school gateway not available",
+    "Expert approval/signatures pending",
+    "Offsite encrypted transfer requires institution destination/key; not run"
+  ]
+}

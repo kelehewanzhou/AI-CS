@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "edge_id": "E001",
+      "source_id": "CO03",
+      "target_id": "OS02",
+      "relation_type": "implements",
+      "mechanism": "TLB通过缓存页表项加速虚拟内存的地址转换过程",
+      "abc_grade": "A",
+      "boundary_note": "",
+      "evidence_status": "已核验",
+      "evidence_summary": "计算机组成原理第3章和操作系统第4章均有说明",
+      "evidence_detail": {
+        "book_title": "计算机组成原理",
+        "edition": "第5版",
+        "chapter": "第3章",
+        "pages": "156-158"
+      }
+    },
+    {
+      "edge_id": "E002",
+      "source_id": "OS03",
+      "target_id": "OS02",
+      "relation_type": "implements",
+      "mechanism": "页表是实现虚拟内存地址映射的核心数据结构",
+      "abc_grade": "A",
+      "boundary_note": "",
+      "evidence_status": "待补充",
+      "evidence_summary": "需补充教材定位",
+      "evidence_detail": null
+    },
+    {
+      "edge_id": "E003",
+      "source_id": "DS04",
+      "target_id": "CN05",
+      "relation_type": "prerequisite",
+      "mechanism": "OSPF路由协议使用图遍历算法计算最短路径",
+      "abc_grade": "B",
+      "boundary_note": "",
+      "evidence_status": "部分定位",
+      "evidence_summary": "数据结构教材有图遍历说明",
+      "evidence_detail": {
+        "book_title": "数据结构",
+        "edition": "",
+        "chapter": "第7章",
+        "pages": ""
+      }
+    }
+  ]
+}

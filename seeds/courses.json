@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "course_code": "CO",
+      "name": "计算机组成原理",
+      "textbook_info": "待教学专家补充正式教材书目与版本"
+    },
+    {
+      "course_code": "OS",
+      "name": "操作系统",
+      "textbook_info": "待教学专家补充正式教材书目与版本"
+    },
+    {
+      "course_code": "DS",
+      "name": "数据结构",
+      "textbook_info": "待教学专家补充正式教材书目与版本"
+    },
+    {
+      "course_code": "CN",
+      "name": "计算机网络",
+      "textbook_info": "待教学专家补充正式教材书目与版本"
+    }
+  ]
+}
