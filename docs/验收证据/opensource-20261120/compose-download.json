@@ -1,0 +1,6 @@
+{
+  "url": "https://github.com/docker/compose/releases/download/v2.40.3/docker-compose-windows-x86_64.exe",
+  "checksum_url": "https://github.com/docker/compose/releases/download/v2.40.3/docker-compose-windows-x86_64.exe.sha256",
+  "sha256": "4c864dd7f879dd40366e087e68a8a02cbcf018be0128867b13369898e67e1532",
+  "checksum_verified": true
+}

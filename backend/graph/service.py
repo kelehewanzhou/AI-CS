@@ -117,7 +117,8 @@ class GraphService:
         filtered_edges = self.repo.get_filtered_edges(
             query.relation_type, query.evidence_status
         )
-        active_node_ids = {node.node_id for node in self.repo.get_all_active_nodes()}
+        active_nodes = {node.node_id: node for node in self.repo.get_all_active_nodes()}
+        active_node_ids = set(active_nodes)
         filtered_edges = self._active_endpoint_edges(filtered_edges, active_node_ids)
 
         visited_nodes = {node.node_id: node for node in seed_nodes}
@@ -128,7 +129,7 @@ class GraphService:
                 for neighbor_id in self.repo.get_neighbors(node_id, filtered_edges):
                     if neighbor_id in visited_nodes or neighbor_id not in active_node_ids:
                         continue
-                    neighbor = self.repo.get_node_by_id(neighbor_id)
+                    neighbor = active_nodes.get(neighbor_id)
                     if neighbor and neighbor.is_active:
                         visited_nodes[neighbor_id] = neighbor
                         next_layer.add(neighbor_id)
@@ -156,6 +157,8 @@ class GraphService:
             raise AppException("NOT_FOUND", f"节点{node_id}不存在", 404)
 
         edges = self.repo.get_incident_edges(node_id)
+        endpoints = self.repo.get_nodes_by_ids(list({endpoint for edge in edges for endpoint in (edge.source_id, edge.target_id)}))
+        titles = {endpoint.node_id: endpoint.title for endpoint in endpoints}
         incoming = [edge for edge in edges if edge.target_id == node_id]
         outgoing = [edge for edge in edges if edge.source_id == node_id]
         return NodeContent(
@@ -169,8 +172,8 @@ class GraphService:
             evidence_overview=EvidenceOverview.model_validate(
                 compute_node_evidence_status(edges)
             ),
-            incoming_edges=[self._build_edge_view(edge) for edge in incoming],
-            outgoing_edges=[self._build_edge_view(edge) for edge in outgoing],
+            incoming_edges=[self._build_edge_view(edge, titles[edge.source_id], titles[edge.target_id]) for edge in incoming],
+            outgoing_edges=[self._build_edge_view(edge, titles[edge.source_id], titles[edge.target_id]) for edge in outgoing],
         )
 
     def get_edge(self, edge_id: str) -> EdgeView:
@@ -219,9 +222,18 @@ class GraphService:
         sorted_nodes = sorted(nodes, key=lambda node: node.node_id)
         sorted_edges = sorted(edges, key=lambda edge: edge.edge_id)
         self._ensure_within_limits(len(sorted_nodes), len(sorted_edges))
+        titles = {node.node_id: node.title for node in sorted_nodes}
+        # Evidence covers all active incident edges, including edges hidden by
+        # the current query filters or crossing the displayed subgraph boundary.
+        incident = {node.node_id: [] for node in sorted_nodes}
+        for edge in self.repo.get_incident_edges_for_nodes(list(incident)):
+            if edge.source_id in incident:
+                incident[edge.source_id].append(edge)
+            if edge.target_id in incident and edge.target_id != edge.source_id:
+                incident[edge.target_id].append(edge)
         return SubgraphResult(
-            nodes=[self._build_graph_node(node) for node in sorted_nodes],
-            edges=[self._build_edge_view(edge) for edge in sorted_edges],
+            nodes=[self._build_graph_node(node, incident[node.node_id]) for node in sorted_nodes],
+            edges=[self._build_edge_view(edge, titles[edge.source_id], titles[edge.target_id]) for edge in sorted_edges],
             meta=SubgraphMeta(
                 mode=mode,
                 seed_node_ids=seed_node_ids,
@@ -243,8 +255,8 @@ class GraphService:
             "evidence_statuses": list(query.evidence_status or EVIDENCE_STATUSES),
         }
 
-    def _build_graph_node(self, node) -> GraphNode:
-        evidence = compute_node_evidence_status(self.repo.get_incident_edges(node.node_id))
+    def _build_graph_node(self, node, incident_edges) -> GraphNode:
+        evidence = compute_node_evidence_status(incident_edges)
         return GraphNode(
             node_id=node.node_id,
             title=node.title,

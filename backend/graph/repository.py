@@ -37,6 +37,11 @@ class GraphRepository:
             ).scalars()
         )
 
+    def get_nodes_by_ids(self, node_ids: list[str]) -> list[KnowledgeNode]:
+        if not node_ids:
+            return []
+        return list(self.db.scalars(select(KnowledgeNode).where(KnowledgeNode.node_id.in_(node_ids))))
+
     def find_nodes(
         self, course_code: str | None = None, q: str | None = None
     ) -> list[KnowledgeNode]:
@@ -73,6 +78,11 @@ class GraphRepository:
         )
 
     def get_incident_edges(self, node_id: str) -> list[KnowledgeEdge]:
+        return self.get_incident_edges_for_nodes([node_id])
+
+    def get_incident_edges_for_nodes(self, node_ids: list[str]) -> list[KnowledgeEdge]:
+        if not node_ids:
+            return []
         source_node = aliased(KnowledgeNode)
         target_node = aliased(KnowledgeNode)
         return list(
@@ -85,8 +95,8 @@ class GraphRepository:
                     source_node.is_active.is_(True),
                     target_node.is_active.is_(True),
                     or_(
-                        KnowledgeEdge.source_id == node_id,
-                        KnowledgeEdge.target_id == node_id,
+                        KnowledgeEdge.source_id.in_(node_ids),
+                        KnowledgeEdge.target_id.in_(node_ids),
                     ),
                 )
                 .order_by(KnowledgeEdge.edge_id)

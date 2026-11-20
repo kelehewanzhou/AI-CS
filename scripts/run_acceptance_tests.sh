@@ -122,10 +122,10 @@ fi
 
 # 6. 数据库权限配置检查
 print_step "6. 检查数据库权限配置文件"
-if [ -f "$PROJECT_ROOT/database/permissions.sql" ]; then
+if [ -f "$PROJECT_ROOT/database/runtime_grants.sql" ]; then
     print_success "权限配置文件存在"
 else
-    print_error "缺少 database/permissions.sql"
+    print_error "缺少 database/runtime_grants.sql"
     exit 1
 fi
 
@@ -150,7 +150,7 @@ REQUIRED_DOCS=(
     "README.md"
     "docs/AT-01至AT-09验收报告.md"
     "docs/数据库权限说明.md"
-    "database/permissions.sql"
+    "database/runtime_grants.sql"
 )
 
 for doc in "${REQUIRED_DOCS[@]}"; do

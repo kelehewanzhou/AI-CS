@@ -140,6 +140,26 @@ def test_runtime_privileges(runtime_engine, imported):
             conn.rollback()
 
 
+def test_cleanup_with_real_foreign_keys(imported, migration_engine, tmp_path):
+    from datetime import datetime, timedelta, timezone
+    from sqlalchemy.orm import Session
+    from cli.cleanup import build_plan, digest, execute_plan
+
+    user_id = str(uuid.uuid4())
+    with migration_engine.begin() as conn:
+        conn.execute(text("INSERT INTO users(user_id,username,password_hash,role,created_at) VALUES(CAST(:id AS uuid),'cleanup_user','unused','student',now()-interval '400 days')"), {"id": user_id})
+        conn.execute(text("INSERT INTO sessions(session_id,user_id,token_hash,expires_at) VALUES(CAST(:sid AS uuid),CAST(:id AS uuid),:token,now()+interval '8 hours')"), {"sid": str(uuid.uuid4()), "id": user_id, "token": "c" * 64})
+        conn.execute(text("INSERT INTO learning_events(user_id,event_type,node_id) VALUES(CAST(:id AS uuid),'view_node','CO03')"), {"id": user_id})
+        conn.execute(text("INSERT INTO exercise_attempts(user_id,question_id,client_submission_id,answer,is_correct,is_evaluation) VALUES(CAST(:id AS uuid),'Q001',CAST(:sid AS uuid),'\"A\"'::jsonb,true,true)"), {"id": user_id, "sid": str(uuid.uuid4())})
+    with Session(migration_engine) as db:
+        now = datetime.now(timezone.utc)
+        plan = build_plan(db, "users", as_of=now, user_ids=[user_id], trial_end=(now - timedelta(days=200)).date().isoformat())
+        assert plan["counts"] == {"sessions": 1, "learning_events": 1, "exercise_attempts": 1, "users": 1}
+        db.rollback()
+        execute_plan(db, plan, digest(plan), approval="integration-only", audit_log=tmp_path / "audit.jsonl")
+        assert db.execute(text("SELECT count(*) FROM users WHERE user_id=CAST(:id AS uuid)"), {"id": user_id}).scalar_one() == 0
+
+
 def test_at09_student_teacher_paths_over_real_nginx(imported, migration_engine):
     from auth.service import ph
 

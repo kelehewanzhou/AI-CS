@@ -9,7 +9,7 @@ import { ApiError, getNode, recordLearningEvent } from '@/lib/api';
 import type { EdgeView, NodeDetail } from '@/lib/types';
 
 function EdgeList({ title, edges }: { title: string; edges: EdgeView[] }) {
-  return <section className="panel"><div className="section-heading"><h2>{title}</h2><span className="muted">{edges.length} 条</span></div>{edges.length ? <div className="edge-list">{edges.map((edge) => <Link className="edge-card" href={`/edge/?id=${encodeURIComponent(edge.edge_id)}`} key={edge.edge_id}><strong>{edge.display_label}</strong><small>{edge.source_title} → {edge.target_title} · {edge.evidence_status}</small></Link>)}</div> : <EmptyState title="暂无关系" />}</section>;
+  return <section className="panel"><div className="section-heading"><h2>{title}</h2><span className="muted">{edges.length} 条</span></div>{edges.length ? <div className="edge-list">{edges.map((edge) => <Link className="edge-card" href={`/edge/?id=${encodeURIComponent(edge.edge_id)}`} key={edge.edge_id}><strong>{edge.display_label}</strong><small>{edge.source_title} {edge.display_mode === 'directed' ? '→' : '—'} {edge.target_title} · {edge.evidence_status}</small></Link>)}</div> : <EmptyState title="暂无关系" />}</section>;
 }
 
 function NodeContent() {

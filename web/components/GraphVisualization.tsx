@@ -18,11 +18,12 @@ export default function GraphVisualization({ nodes, edges }: { nodes: GraphNode[
         container: containerRef.current,
         elements: [
           ...nodes.map((node) => ({ data: { id: node.node_id, label: node.title, course: node.course_code } })),
-          ...edges.map((edge) => ({ data: { id: edge.edge_id, source: edge.source_id, target: edge.target_id, label: edge.display_label } })),
+          ...edges.map((edge) => ({ data: { id: edge.edge_id, source: edge.source_id, target: edge.target_id, label: edge.display_label, display_mode: edge.display_mode } })),
         ],
         style: [
           { selector: 'node', style: { label: 'data(label)', 'background-color': '#2563eb', color: '#172033', 'font-size': '12px', 'text-valign': 'bottom', 'text-margin-y': 8, width: '30px', height: '30px' } },
-          { selector: 'edge', style: { label: 'data(label)', 'curve-style': 'bezier', 'target-arrow-shape': 'triangle', 'line-color': '#a7b5c9', 'target-arrow-color': '#a7b5c9', color: '#52627a', 'font-size': '9px', 'text-background-color': '#ffffff', 'text-background-opacity': 1, 'text-background-padding': '2px' } },
+          { selector: 'edge', style: { label: 'data(label)', 'curve-style': 'bezier', 'target-arrow-shape': 'none', 'line-color': '#a7b5c9', 'target-arrow-color': '#a7b5c9', color: '#52627a', 'font-size': '9px', 'text-background-color': '#ffffff', 'text-background-opacity': 1, 'text-background-padding': '2px' } },
+          { selector: 'edge[display_mode = "directed"]', style: { 'target-arrow-shape': 'triangle' } },
         ],
         layout: { name: 'cose', animate: false, padding: 40 },
       });

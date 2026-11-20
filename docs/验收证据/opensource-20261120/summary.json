@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-20T15:49:04.060590+08:00",
+  "scope": "Existing workspace; isolated tests; no production deployment",
+  "backend_regression": {
+    "command": "python -m pytest backend/tests -q",
+    "passed": 100,
+    "skipped": 14,
+    "warnings": 1,
+    "warning": "Starlette TestClient httpx deprecation; no unchecked replacement dependency added",
+    "skips_resolved_by": "native-acceptance.json: 14 PostgreSQL/proxy tests passed"
+  },
+  "web": {
+    "package_manager": "pnpm 10.34.9 via corepack",
+    "frozen_offline_install": true,
+    "typescript": true,
+    "static_production_build": true,
+    "exported_pages": 11,
+    "telemetry_disabled_for_final_build": true,
+    "version_changes": "Only ranges fixed to previously resolved uuid/type versions; no actual dependency versions changed"
+  },
+  "audit": {
+    "python_file": "python-audit.json",
+    "node_file": "node-audit.json",
+    "python_dependencies": 28,
+    "node_dependencies": 62,
+    "known_vulnerabilities_found": 0,
+    "limitations": [
+      "Production Python lock and frontend dependencies only",
+      "No container/OS or full development dependency audit"
+    ]
+  },
+  "component_verification": {
+    "passed": true,
+    "count": 21,
+    "command": "python scripts/verify_components.py"
+  },
+  "compose": "compose-config.json: official CLI 2.40.3, verified binary checksum, config only; no daemon",
+  "seed_review": "seed-review.json",
+  "native": "native-acceptance.json",
+  "git_diff_check": true,
+  "failed_attempts": [
+    {
+      "stage": "native browser",
+      "reason": "old temporary Playwright package incomplete",
+      "resolution": "local review-venv with system-site-packages, pinned Playwright 1.56.0; no global package changed"
+    },
+    {
+      "stage": "graph node click",
+      "reason": "positioned click did not navigate after automatic scroll",
+      "resolution": "read viewport coordinates after scroll; real mouse click passed on rerun"
+    },
+    {
+      "stage": "metadata collection",
+      "reason": "some GitHub API requests rate-limited",
+      "resolution": "retain missing fields and raw errors; package versions/licenses checked from registries and installed files"
+    }
+  ],
+  "remaining": [
+    "Docker image build and Compose daemon startup",
+    "Production TLS/certificate chain/school gateway and remote backup destination",
+    "Authentic expert content approval and target-environment sign-off",
+    "First remote CI run and Linux branch verification",
+    "Container full dependency vulnerability/license inventory"
+  ]
+}

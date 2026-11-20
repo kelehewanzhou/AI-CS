@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from uuid import UUID
 
-from sqlalchemy import and_, exists, func, or_, select
+from sqlalchemy import and_, exists, func, or_, select, union
 from sqlalchemy.orm import Session
 
 from exercise.models import Exercise, ExerciseAttempt, ExerciseRelatedNode
@@ -17,6 +17,68 @@ from .models import LearningEvent
 class LearningRepository:
     def __init__(self, db: Session) -> None:
         self.db = db
+
+    def get_state_inputs(self, user_id: UUID, node_ids: list[str]) -> dict[str, dict]:
+        """Read all state inputs in four queries, independent of node count."""
+        inputs = {node_id: {"available_count": 0, "evaluation_count": 0,
+                            "evaluations": [], "total_attempts": 0, "has_viewed": False}
+                  for node_id in node_ids}
+        if not inputs:
+            return inputs
+        available = self.db.execute(
+            select(ExerciseRelatedNode.node_id, func.count(func.distinct(Exercise.question_id)))
+            .join(Exercise, Exercise.question_id == ExerciseRelatedNode.question_id)
+            .where(ExerciseRelatedNode.node_id.in_(node_ids), Exercise.is_active.is_(True))
+            .group_by(ExerciseRelatedNode.node_id)
+        )
+        for node_id, count in available:
+            inputs[node_id]["available_count"] = int(count)
+
+        # Historical evaluations still count after a question is deactivated.
+        # Fetch only the most recent five while retaining the full count.
+        ranked = (
+            select(
+                ExerciseRelatedNode.node_id,
+                ExerciseAttempt.is_correct,
+                ExerciseAttempt.submitted_at,
+                ExerciseAttempt.attempt_id,
+                func.count().over(partition_by=ExerciseRelatedNode.node_id).label("total"),
+                func.row_number().over(
+                    partition_by=ExerciseRelatedNode.node_id,
+                    order_by=(ExerciseAttempt.submitted_at.desc(), ExerciseAttempt.attempt_id.desc()),
+                ).label("rank"),
+            )
+            .join(ExerciseRelatedNode, ExerciseRelatedNode.question_id == ExerciseAttempt.question_id)
+            .where(ExerciseAttempt.user_id == user_id, ExerciseRelatedNode.node_id.in_(node_ids),
+                   ExerciseAttempt.is_evaluation.is_(True))
+            .subquery()
+        )
+        for row in self.db.execute(select(ranked).where(ranked.c.rank <= 5).order_by(ranked.c.node_id, ranked.c.rank)):
+            inputs[row.node_id]["evaluation_count"] = int(row.total)
+            inputs[row.node_id]["evaluations"].append((bool(row.is_correct), row.submitted_at, int(row.attempt_id)))
+
+        attempts = self.db.execute(
+            select(ExerciseRelatedNode.node_id, func.count())
+            .join(ExerciseAttempt, ExerciseAttempt.question_id == ExerciseRelatedNode.question_id)
+            .where(ExerciseAttempt.user_id == user_id, ExerciseRelatedNode.node_id.in_(node_ids))
+            .group_by(ExerciseRelatedNode.node_id)
+        )
+        for node_id, count in attempts:
+            inputs[node_id]["total_attempts"] = int(count)
+
+        viewed = select(LearningEvent.node_id).where(
+            LearningEvent.user_id == user_id, LearningEvent.event_type == "view_node",
+            LearningEvent.node_id.in_(node_ids),
+        )
+        started = (
+            select(ExerciseRelatedNode.node_id)
+            .join(LearningEvent, LearningEvent.question_id == ExerciseRelatedNode.question_id)
+            .where(LearningEvent.user_id == user_id, LearningEvent.event_type == "start_exercise",
+                   ExerciseRelatedNode.node_id.in_(node_ids))
+        )
+        for node_id in self.db.scalars(union(viewed, started)):
+            inputs[node_id]["has_viewed"] = True
+        return inputs
 
     def create_event(
         self,

@@ -125,6 +125,10 @@ docker-compose.yml
 
 ## 记录
 
+2026-11-20 已按开发建议补查开源组件，过程、逐步检验及未完成项见 [开源复核结果](docs/开源复核/03-逐步验收结果.md)，已有组件版本、许可、替换与维护要求见 [允许使用清单](ALLOWED_COMPONENTS.md)。运行 `python scripts/verify_components.py` 检查清单和锁文件。优先复用已有依赖；新架构或影响数据、权限、部署的依赖须先比较和独立试用，业务规则留在本项目。
+
+每次 push 和 pull request 由 [GitHub Actions](.github/workflows/checks.yml) 运行后端回归、前端类型检查/构建，以及隔离 PostgreSQL/Nginx 的 Playwright 浏览器验收（登录、改密、图谱、答题保存与丢失响应重试）。图谱入口先选择课程或关键词，接口仍保持60节点/120边上限。到期数据清理使用 `python scripts/manage.py cleanup`，预览、批准和审计步骤见[运维手册](docs/运维手册.md)。
+
 - [版本记录](docs/versions.md)
 - [镜像清单](docs/images.md)
 - [依赖审计](docs/dependency-audit.md)

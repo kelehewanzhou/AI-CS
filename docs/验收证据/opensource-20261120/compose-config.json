@@ -1,0 +1,16 @@
+{
+  "compose_version": "2.40.3",
+  "base_config_valid": true,
+  "tls_config_valid": true,
+  "services": [
+    "backend",
+    "migrate",
+    "nginx",
+    "postgres",
+    "seed-import"
+  ],
+  "dependency_order_verified": true,
+  "internal_database_and_backend": true,
+  "log_rotation_verified": true,
+  "docker_daemon_execution": false
+}

@@ -1,0 +1,70 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: backend/requirements.lock
+      - name: Install backend and test dependencies
+        run: |
+          python -m pip install --require-hashes -r backend/requirements.lock
+          python -m pip install pytest==9.2.0 httpx==0.28.1 playwright==1.56.0
+      - name: Backend regression tests
+        run: python -m pytest backend/tests -q
+      - name: Verify reviewed component versions and licenses
+        run: python scripts/verify_components.py
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - name: Install, type-check and build web
+        working-directory: web
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm exec tsc --noEmit
+          pnpm build
+      - name: Install isolated integration tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-common nginx
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get update
+          sudo apt-get install -y postgresql-17
+          python -m playwright install --with-deps chromium
+      - name: PostgreSQL, proxy, browser and restore acceptance
+        env:
+          KGLEARN_BROWSER_CHANNEL: chromium
+        run: >-
+          python scripts/verify_native.py
+          --pg-bin /usr/lib/postgresql/17/bin
+          --nginx-dir /usr/sbin
+          --browser
+          --output .runtime/ci-acceptance.json
+      - name: Upload acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: acceptance-evidence
+          path: .runtime/ci-acceptance.json
+          if-no-files-found: ignore

@@ -1,4 +1,4 @@
-"""Verify Task 9 with a disposable PostgreSQL cluster and real Nginx on Windows.
+"""Verify Task 9 with a disposable PostgreSQL cluster and real Nginx.
 
 This complements Compose acceptance when Docker is unavailable. No existing
 database is used. All data, generated config and logs stay in a new temp folder.
@@ -48,10 +48,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--pg-bin", type=Path, required=True)
     parser.add_argument("--nginx-dir", type=Path, required=True)
-    parser.add_argument("--bash", type=Path, default=Path("C:/Program Files/Git/bin/bash.exe"))
+    parser.add_argument("--bash", type=Path, default=Path("C:/Program Files/Git/bin/bash.exe" if os.name == "nt" else "/bin/bash"))
     parser.add_argument("--output", type=Path, default=ROOT / "docs/验收证据/task9-native.json")
     parser.add_argument("--browser", action="store_true", help="Run optional Playwright/Edge browser paths")
     args = parser.parse_args()
+    def pg_tool(name):
+        return args.pg_bin / (name + ".exe" if os.name == "nt" else name)
+
+    nginx_binary = args.nginx_dir / ("nginx.exe" if os.name == "nt" else "nginx")
+    mime_types = args.nginx_dir / "conf/mime.types" if os.name == "nt" else Path("/etc/nginx/mime.types")
     scratch = Path(tempfile.mkdtemp(prefix="kglearn-task9-"))
     env = os.environ.copy()
     env["PATH"] = str(args.pg_bin.resolve()) + os.pathsep + env["PATH"]
@@ -92,13 +97,16 @@ def main():
         if os.name == "nt":
             identity = next(csv.reader([run(["whoami", "/user", "/fo", "csv", "/nh"]).strip()]))
             run(["icacls", scratch, "/grant", f"*{identity[1]}:(OI)(CI)F", "/T", "/Q"])
-        run([args.pg_bin / "initdb.exe", "-D", scratch / "pgdata", "-U", admin, "--pwfile", password_file, "--auth=scram-sha-256", "--encoding=UTF8", "--locale=C"])
+        run([pg_tool("initdb"), "-D", scratch / "pgdata", "-U", admin, "--pwfile", password_file, "--auth=scram-sha-256", "--encoding=UTF8", "--locale=C"])
         password_file.unlink()
-        run([args.pg_bin / "pg_ctl.exe", "-D", scratch / "pgdata", "-l", scratch / "postgres.log", "-o", f"-h 127.0.0.1 -p {pg_port}", "-w", "start"], capture=False)
+        server_options = f"-h 127.0.0.1 -p {pg_port}"
+        if os.name != "nt":
+            server_options += f" -k {scratch.as_posix()}"
+        run([pg_tool("pg_ctl"), "-D", scratch / "pgdata", "-l", scratch / "postgres.log", "-o", server_options, "-w", "start"], capture=False)
         pg_started = True
-        evidence["postgres_version"] = run([args.pg_bin / "postgres.exe", "--version"]).strip()
-        run([args.pg_bin / "createdb.exe", "kglearn"])
-        run([args.pg_bin / "psql.exe", "-X", "-v", "ON_ERROR_STOP=1", "-d", "kglearn", "-f", ROOT / "database/init/roles.sql.inc"])
+        evidence["postgres_version"] = run([pg_tool("postgres"), "--version"]).strip()
+        run([pg_tool("createdb"), "kglearn"])
+        run([pg_tool("psql"), "-X", "-v", "ON_ERROR_STOP=1", "-d", "kglearn", "-f", ROOT / "database/init/roles.sql.inc"])
         migration_env = env | {"DATABASE_URL": env["KGLEARN_TEST_MIGRATION_URL"]}
         run([sys.executable, "-m", "cli.migrate"], cwd=ROOT / "backend", variables=migration_env)
         # Running a second time proves one-shot migration/grants are repeatable.
@@ -123,11 +131,14 @@ def main():
         (nginx_root / "conf.d/default.conf").write_text(server, encoding="utf-8")
         config = (ROOT / "nginx/nginx.conf").read_text(encoding="utf-8")
         config = config.replace("user nginx;", "").replace("/dev/stderr", (nginx_root / "logs/error.log").as_posix()).replace("/dev/stdout", (nginx_root / "logs/access.log").as_posix())
-        config = config.replace("/var/run/nginx.pid", (nginx_root / "nginx.pid").as_posix()).replace("/etc/nginx/mime.types", (args.nginx_dir / "conf/mime.types").resolve().as_posix()).replace("/etc/nginx/conf.d", (nginx_root / "conf.d").as_posix())
+        config = config.replace("/var/run/nginx.pid", (nginx_root / "nginx.pid").as_posix()).replace("/etc/nginx/mime.types", mime_types.resolve().as_posix()).replace("/etc/nginx/conf.d", (nginx_root / "conf.d").as_posix())
+        if os.name != "nt":
+            config = config.replace("http {", "http {\n" + "\n".join(
+                f"    {kind}_temp_path temp/{kind};" for kind in ("client_body", "proxy", "fastcgi", "uwsgi", "scgi")))
         (nginx_root / "nginx.conf").write_text(config, encoding="utf-8")
-        nginx_cmd = [args.nginx_dir / "nginx.exe", "-p", nginx_root.as_posix() + "/", "-c", "nginx.conf"]
+        nginx_cmd = [nginx_binary, "-p", nginx_root.as_posix() + "/", "-c", "nginx.conf", "-g", "daemon off;"]
         run(nginx_cmd + ["-t"])
-        evidence["nginx_version"] = run([args.nginx_dir / "nginx.exe", "-v"]).strip()
+        evidence["nginx_version"] = run([nginx_binary, "-v"]).strip()
         backend_log = (scratch / "backend.log").open("w", encoding="utf-8")
         backend = subprocess.Popen([sys.executable, "-m", "uvicorn", "main:app", "--host", "127.0.0.1", "--port", str(api_port), "--no-access-log", "--no-proxy-headers"], cwd=ROOT / "backend", env=env, stdout=backend_log, stderr=subprocess.STDOUT)
         wait_http(f"http://127.0.0.1:{api_port}/health/live", backend)
@@ -201,7 +212,7 @@ def main():
             backend.terminate()
             backend.wait(timeout=10)
         if pg_started:
-            subprocess.run([str(args.pg_bin / "pg_ctl.exe"), "-D", str(scratch / "pgdata"), "-m", "fast", "-w", "stop"], env=env, capture_output=True)
+            subprocess.run([str(pg_tool("pg_ctl")), "-D", str(scratch / "pgdata"), "-m", "fast", "-w", "stop"], env=env, capture_output=True)
         print(f"Isolated runtime stopped; diagnostics: {scratch}")
 
 

@@ -1,0 +1,942 @@
+{
+  "checked_at": "2026-11-20T15:39:58.821705+08:00",
+  "scope": "Existing MVP packages; Compose configuration only; no container deployment approval",
+  "digest_normalization": "CRLF -> LF for checked-in text files; original raw metadata digests remain in official-metadata.json",
+  "components": [
+    {
+      "ecosystem": "npm",
+      "name": "cytoscape",
+      "repository": "https://github.com/cytoscape/cytoscape.js",
+      "decision": "selected",
+      "module": "graph",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "3.34.4",
+      "license": "MIT",
+      "release_time": "2026-10-15T19:14:50.649Z",
+      "integrity": "sha512-msY99tMY8iWTg+sIPGfSqDcPNOt4xcj+v/K/7qUFaCUxxlqnMkUYLBjRUzn9W5CU/R2hrmtJa5+UtovrEM2ctg==",
+      "source_commit": "e394aa858b0699a67be8f9ab426823ae1aae7813",
+      "engines": {
+        "node": ">=0.10"
+      },
+      "dependencies": {},
+      "sources": [
+        "https://registry.npmjs.org/cytoscape/3.34.4",
+        "https://api.github.com/repos/cytoscape/cytoscape.js"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/cytoscape-0-LICENSE",
+          "sha256": "eb319c6e6f233607f71e8e2f450391751883cfc0eeb3ca7ef574c13d1d9c2203"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "pydantic",
+      "repository": "https://github.com/pydantic/pydantic",
+      "decision": "selected",
+      "module": "import",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [],
+      "version": "2.14.2",
+      "license": "MIT",
+      "license_classifiers": [],
+      "requires_python": ">=3.10",
+      "dependencies": [
+        "annotated-types>=0.6.0",
+        "pydantic-core==2.50.2",
+        "typing-extensions>=4.16.0",
+        "typing-inspection>=0.4.4",
+        "email-validator>=2.0.0; extra == \"email\"",
+        "tzdata; platform_system == \"Windows\" and extra == \"timezone\""
+      ],
+      "release_time": "2026-10-29T16:37:10.181777Z",
+      "project_urls": {
+        "Changelog": "https://pydantic.dev/docs/validation/latest/get-started/changelog/",
+        "Documentation": "https://pydantic.dev/docs/validation/latest/get-started/",
+        "Funding": "https://github.com/sponsors/samuelcolvin",
+        "Homepage": "https://github.com/pydantic/pydantic",
+        "Source": "https://github.com/pydantic/pydantic"
+      },
+      "sources": [
+        "https://pypi.org/pypi/pydantic/2.14.2/json",
+        "https://api.github.com/repos/pydantic/pydantic"
+      ],
+      "archived": false,
+      "pushed_at": "2026-11-19T22:54:06Z",
+      "repository_license": "MIT",
+      "default_branch": "main",
+      "source_commit": "aa540acc29960fb394312cf97d888c99f9686814",
+      "source_tag": "v2.14.2",
+      "license_files": [
+        {
+          "path": "third_party/licenses/pydantic-0-LICENSE",
+          "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "argon2-cffi",
+      "repository": "https://github.com/hynek/argon2-cffi",
+      "decision": "selected",
+      "module": "auth",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [],
+      "version": "25.1.0",
+      "license": "MIT",
+      "license_classifiers": [],
+      "requires_python": ">=3.8",
+      "dependencies": [
+        "argon2-cffi-bindings"
+      ],
+      "release_time": "2025-06-03T06:55:30.804163Z",
+      "project_urls": {
+        "Changelog": "https://github.com/hynek/argon2-cffi/blob/main/CHANGELOG.md",
+        "Documentation": "https://argon2-cffi.readthedocs.io/",
+        "Funding": "https://github.com/sponsors/hynek",
+        "GitHub": "https://github.com/hynek/argon2-cffi",
+        "Tidelift": "https://tidelift.com/?utm_source=lifter&utm_medium=referral&utm_campaign=hynek"
+      },
+      "sources": [
+        "https://pypi.org/pypi/argon2-cffi/25.1.0/json",
+        "https://api.github.com/repos/hynek/argon2-cffi"
+      ],
+      "archived": false,
+      "pushed_at": "2026-11-13T07:39:40Z",
+      "repository_license": "MIT",
+      "default_branch": "main",
+      "source_commit": "1fcae4fc1b7ff192b5ade54f6616771e5cf5f391",
+      "source_tag": "25.1.0",
+      "license_files": [
+        {
+          "path": "third_party/licenses/argon2-cffi-0-LICENSE",
+          "sha256": "b6944d386e87ccf49d9632da083685a4b7624733e686a7fe283dd2d428341d77"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "pytest",
+      "repository": "https://github.com/pytest-dev/pytest",
+      "decision": "selected",
+      "module": "test",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [],
+      "version": "9.2.0",
+      "license": "MIT",
+      "license_classifiers": [],
+      "requires_python": ">=3.10",
+      "dependencies": [
+        "colorama>=0.4; sys_platform == \"win32\"",
+        "exceptiongroup>=1; python_version < \"3.11\"",
+        "iniconfig>=2",
+        "packaging>=24",
+        "pluggy<2,>=1.6",
+        "pygments>=2.15",
+        "tomli>=2; python_version < \"3.11\"",
+        "argcomplete; extra == \"dev\"",
+        "asynctest; python_version < \"3.11\" and extra == \"dev\"",
+        "attrs>=23.1; extra == \"dev\"",
+        "coverage>=7.5; extra == \"dev\"",
+        "hypothesis>=6.75; extra == \"dev\"",
+        "mock; extra == \"dev\"",
+        "numpy>=1.26; extra == \"dev\"",
+        "pexpect>=4.9; extra == \"dev\"",
+        "pytest-xdist>=3.5; extra == \"dev\"",
+        "pyyaml; extra == \"dev\"",
+        "requests; extra == \"dev\"",
+        "setuptools; extra == \"dev\"",
+        "xmlschema; extra == \"dev\""
+      ],
+      "release_time": "2026-10-27T21:30:19.131148Z",
+      "project_urls": {
+        "Changelog": "https://docs.pytest.org/en/stable/changelog.html",
+        "Contact": "https://docs.pytest.org/en/stable/contact.html",
+        "Funding": "https://docs.pytest.org/en/stable/sponsor.html",
+        "Homepage": "https://docs.pytest.org/en/latest/",
+        "Source": "https://github.com/pytest-dev/pytest",
+        "Tracker": "https://github.com/pytest-dev/pytest/issues"
+      },
+      "sources": [
+        "https://pypi.org/pypi/pytest/9.2.0/json",
+        "https://api.github.com/repos/pytest-dev/pytest"
+      ],
+      "archived": false,
+      "pushed_at": "2026-11-20T05:27:44Z",
+      "repository_license": "MIT",
+      "default_branch": "main",
+      "source_commit": "ae1d0ff57b8bd4252da9ade7353523ac0ac73281",
+      "source_tag": "9.2.0",
+      "license_files": [
+        {
+          "path": "third_party/licenses/pytest-0-LICENSE",
+          "sha256": "ca836a5f9ecca3b2f350230faa20a48fb8b145653b5568d784862df864706b9b"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "playwright",
+      "repository": "https://github.com/microsoft/playwright-python",
+      "decision": "selected",
+      "module": "browser",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "1.56.0",
+      "license": "Apache-2.0",
+      "license_classifiers": [],
+      "requires_python": ">=3.9",
+      "dependencies": [
+        "pyee<14,>=13",
+        "greenlet<4.0.0,>=3.1.1"
+      ],
+      "release_time": "2025-11-11T18:39:10.175719Z",
+      "project_urls": {
+        "Release notes": "https://github.com/microsoft/playwright-python/releases",
+        "homepage": "https://github.com/Microsoft/playwright-python"
+      },
+      "sources": [
+        "https://pypi.org/pypi/playwright/1.56.0/json",
+        "https://api.github.com/repos/microsoft/playwright-python"
+      ],
+      "archived": false,
+      "pushed_at": "2026-11-20T01:05:48Z",
+      "repository_license": "Apache-2.0",
+      "default_branch": "main",
+      "license_files": [
+        {
+          "path": "third_party/licenses/playwright-0-LICENSE",
+          "sha256": "7fab1461b41970ff376f1c9303a637076bfaaeb71cd12dd3a1c44aaf59a1a2b9"
+        },
+        {
+          "path": "third_party/licenses/playwright-1-LICENSE",
+          "sha256": "7fab1461b41970ff376f1c9303a637076bfaaeb71cd12dd3a1c44aaf59a1a2b9"
+        },
+        {
+          "path": "third_party/licenses/playwright-2-NOTICE",
+          "sha256": "6d602191187b35b9b01d2cffa01c8469c2c8d9de8a96f1bf868e0f264f51c81d"
+        }
+      ]
+    },
+    {
+      "ecosystem": "github",
+      "name": "compose",
+      "repository": "https://github.com/docker/compose",
+      "decision": "selected_config_only",
+      "module": "deploy",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "archived": false,
+      "pushed_at": "2026-11-18T14:30:27Z",
+      "repository_license": "Apache-2.0",
+      "default_branch": "main",
+      "sources": [
+        "https://api.github.com/repos/docker/compose"
+      ],
+      "version": "2.40.3",
+      "license": "Apache-2.0",
+      "license_files": [
+        {
+          "path": "third_party/licenses/compose-LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "source": "https://raw.githubusercontent.com/docker/compose/v2.40.3/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "next",
+      "repository": "https://github.com/vercel/next.js",
+      "decision": "selected",
+      "module": "web",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded",
+        "Exact upstream tag not resolved: HTTP Error 422: Unprocessable Entity"
+      ],
+      "version": "16.4.5",
+      "license": "MIT",
+      "release_time": "2026-11-03T18:01:54.667Z",
+      "integrity": "sha512-rmdfsWosjTUO+6R0S3KokoIk6Kj0sWDRTe86tZHdqaWH/oXq/udX3/4xb+YQi7aWbyEFoglDU54kaifLCdXbBw==",
+      "source_commit": null,
+      "engines": {
+        "node": ">=20.9.0"
+      },
+      "dependencies": {
+        "postcss": "8.5.23",
+        "@next/env": "16.4.5",
+        "styled-jsx": "5.1.6",
+        "@swc/helpers": "0.5.23",
+        "caniuse-lite": "^1.0.30001579",
+        "baseline-browser-mapping": "^2.9.19"
+      },
+      "sources": [
+        "https://registry.npmjs.org/next/16.4.5",
+        "https://api.github.com/repos/vercel/next.js"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/next-0-license.md",
+          "sha256": "ee765244e2d59f5234d474f62e0766fa0c8b99af967fdd4c0cb8dcb0c76ea224"
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react",
+      "repository": "https://github.com/facebook/react",
+      "decision": "selected",
+      "module": "web",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "19.2.9",
+      "license": "MIT",
+      "release_time": "2026-10-14T16:54:43.794Z",
+      "integrity": "sha512-RuLdAokXv3sRmZa2/N8QH0KmTBIgDKC+buRUikGqow31+mGSGidLCX2o4XFq8OV+xBFWfhM9DVgTq1PPHADH4w==",
+      "source_commit": "3d06b4005ac0cf9dec37267f26174adfe6d83611",
+      "engines": {
+        "node": ">=0.10.0"
+      },
+      "dependencies": {},
+      "sources": [
+        "https://registry.npmjs.org/react/19.2.9",
+        "https://api.github.com/repos/facebook/react"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/react-0-LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "react-dom",
+      "repository": "https://github.com/facebook/react",
+      "decision": "selected",
+      "module": "web",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "19.2.9",
+      "license": "MIT",
+      "release_time": "2026-10-14T16:49:51.523Z",
+      "integrity": "sha512-YceU74W21fXEHszKBLj16MY0CmvpFKOs60iVrIyW/cCgOPsZJNaB6GVJEtIUqt6AG6EjzKLui5lPRrxAeS328Q==",
+      "source_commit": "3d06b4005ac0cf9dec37267f26174adfe6d83611",
+      "engines": null,
+      "dependencies": {
+        "scheduler": "^0.27.0"
+      },
+      "sources": [
+        "https://registry.npmjs.org/react-dom/19.2.9",
+        "https://api.github.com/repos/facebook/react"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/react-dom-0-LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "uuid",
+      "repository": "https://github.com/uuidjs/uuid",
+      "decision": "selected",
+      "module": "web",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "11.1.1",
+      "license": "MIT",
+      "release_time": "2026-04-29T15:17:24.795Z",
+      "integrity": "sha512-vIYxrBCC/N/K+Js3qSN88go7kIfNPssr/hHCesKCQNAjmgvYS2oqr69kIufEG+O4+PfezOH4EbIeHCfFov8ZgQ==",
+      "source_commit": "7269a96c12a55a745bd4a7812c01cfd385ec6c46",
+      "engines": null,
+      "dependencies": {},
+      "sources": [
+        "https://registry.npmjs.org/uuid/11.1.1",
+        "https://api.github.com/repos/uuidjs/uuid"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/uuid-0-LICENSE.md",
+          "sha256": "beaa6b04fb82e41dd2ad679e19e27953afb5999b1abbb455b6564e78ebfeb332"
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "typescript",
+      "repository": "https://github.com/microsoft/TypeScript",
+      "decision": "selected",
+      "module": "tool",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "5.9.3",
+      "license": "Apache-2.0",
+      "release_time": "2025-09-30T21:19:38.784Z",
+      "integrity": "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==",
+      "source_commit": "c63de15a992d37f0d6cec03ac7631872838602cb",
+      "engines": {
+        "node": ">=14.17"
+      },
+      "dependencies": {},
+      "sources": [
+        "https://registry.npmjs.org/typescript/5.9.3",
+        "https://api.github.com/repos/microsoft/TypeScript"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/typescript-0-LICENSE.txt",
+          "sha256": "a5e9f9b1575301c7a7a03508fdaa2e05a918cc17fd21c6e898096a96d6a34f61"
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/react",
+      "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+      "decision": "selected",
+      "module": "tool",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded",
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "19.3.0",
+      "license": "MIT",
+      "release_time": "2026-09-09T18:08:49.750Z",
+      "integrity": "sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==",
+      "source_commit": null,
+      "engines": null,
+      "dependencies": {
+        "csstype": "^3.2.2"
+      },
+      "sources": [
+        "https://registry.npmjs.org/@types%2freact/19.3.0",
+        "https://api.github.com/repos/DefinitelyTyped/DefinitelyTyped"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/types_react-0-LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "@types/node",
+      "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+      "decision": "selected",
+      "module": "tool",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "24.19.2",
+      "license": "MIT",
+      "release_time": "2026-10-09T18:44:25.189Z",
+      "integrity": "sha512-93d49wCWJkCyN87MxLpNN6KXPCwFw7bVUg79mGUV1OS40JGWwVCr8n61DXCSqz7CV6/VfPkb7xec7uP2M+QHWQ==",
+      "source_commit": null,
+      "engines": null,
+      "dependencies": {
+        "undici-types": ">=7.24.0 <7.24.7"
+      },
+      "sources": [
+        "https://registry.npmjs.org/@types%2fnode/24.19.2",
+        "https://api.github.com/repos/DefinitelyTyped/DefinitelyTyped"
+      ],
+      "archived": false,
+      "pushed_at": "2026-11-20T01:44:14Z",
+      "repository_license": "NOASSERTION",
+      "default_branch": "master",
+      "license_files": [
+        {
+          "path": "third_party/licenses/types_node-0-LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        }
+      ]
+    },
+    {
+      "ecosystem": "npm",
+      "name": "pnpm",
+      "repository": "https://github.com/pnpm/pnpm",
+      "decision": "selected",
+      "module": "tool",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded",
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "10.34.9",
+      "license": "MIT",
+      "release_time": "2026-10-25T17:54:00.645Z",
+      "integrity": "sha512-9JtajqD97bRLs8DB1ldQkqU8KVDZW3rRXfEfF5dId6LeOgHAfpNOmyjOcW5RwJqUlixzBtCb4uHksYqMh2L9Mg==",
+      "source_commit": null,
+      "engines": {
+        "node": ">=18.12"
+      },
+      "dependencies": {},
+      "sources": [
+        "https://registry.npmjs.org/pnpm/10.34.9",
+        "https://api.github.com/repos/pnpm/pnpm"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/pnpm-LICENSE",
+          "sha256": "4b8e2a57502758b2d034ece9cabf19dd098c5609003ed8dbdafd085274f25bd9",
+          "source": "https://raw.githubusercontent.com/pnpm/pnpm/v10.34.9/LICENSE"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "fastapi",
+      "repository": "https://github.com/fastapi/fastapi",
+      "decision": "selected",
+      "module": "api",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded",
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "0.162.0",
+      "license": "MIT",
+      "license_classifiers": [],
+      "requires_python": ">=3.10",
+      "dependencies": [
+        "starlette>=0.46.0",
+        "pydantic>=2.9.0",
+        "typing-extensions>=4.8.0",
+        "typing-inspection>=0.4.2",
+        "annotated-doc>=0.0.2",
+        "opentelemetry-api>=1.44.0",
+        "opentelemetry-sdk>=1.44.0; extra == \"opentelemetry\"",
+        "opentelemetry-exporter-otlp-proto-http>=1.44.0; extra == \"opentelemetry\"",
+        "opentelemetry-sdk>=1.44.0; extra == \"standard\"",
+        "opentelemetry-exporter-otlp-proto-http>=1.44.0; extra == \"standard\"",
+        "fastapi-cli[standard]>=0.0.32; extra == \"standard\"",
+        "fastar>=0.9.0; extra == \"standard\"",
+        "httpx<1.0.0,>=0.23.0; extra == \"standard\"",
+        "httpx2>=2.0.0; extra == \"standard\"",
+        "jinja2>=3.1.5; extra == \"standard\"",
+        "python-multipart>=0.0.18; extra == \"standard\"",
+        "email-validator>=2.0.0; extra == \"standard\"",
+        "uvicorn[standard]>=0.12.0; extra == \"standard\"",
+        "pydantic-settings>=2.0.0; extra == \"standard\"",
+        "pydantic-extra-types>=2.0.0; extra == \"standard\"",
+        "opentelemetry-sdk>=1.44.0; extra == \"standard-no-fastapi-cloud-cli\"",
+        "opentelemetry-exporter-otlp-proto-http>=1.44.0; extra == \"standard-no-fastapi-cloud-cli\"",
+        "fastapi-cli[standard-no-fastapi-cloud-cli]>=0.0.32; extra == \"standard-no-fastapi-cloud-cli\"",
+        "httpx<1.0.0,>=0.23.0; extra == \"standard-no-fastapi-cloud-cli\"",
+        "httpx2>=2.0.0; extra == \"standard-no-fastapi-cloud-cli\"",
+        "jinja2>=3.1.5; extra == \"standard-no-fastapi-cloud-cli\"",
+        "python-multipart>=0.0.18; extra == \"standard-no-fastapi-cloud-cli\"",
+        "email-validator>=2.0.0; extra == \"standard-no-fastapi-cloud-cli\"",
+        "uvicorn[standard]>=0.12.0; extra == \"standard-no-fastapi-cloud-cli\"",
+        "pydantic-settings>=2.0.0; extra == \"standard-no-fastapi-cloud-cli\"",
+        "pydantic-extra-types>=2.0.0; extra == \"standard-no-fastapi-cloud-cli\"",
+        "opentelemetry-sdk>=1.44.0; extra == \"all\"",
+        "opentelemetry-exporter-otlp-proto-http>=1.44.0; extra == \"all\"",
+        "fastapi-cli[standard]>=0.0.32; extra == \"all\"",
+        "httpx<1.0.0,>=0.23.0; extra == \"all\"",
+        "httpx2>=2.0.0; extra == \"all\"",
+        "jinja2>=3.1.5; extra == \"all\"",
+        "python-multipart>=0.0.18; extra == \"all\"",
+        "itsdangerous>=1.1.0; extra == \"all\"",
+        "pyyaml>=5.3.1; extra == \"all\"",
+        "email-validator>=2.0.0; extra == \"all\"",
+        "uvicorn[standard]>=0.12.0; extra == \"all\"",
+        "pydantic-settings>=2.0.0; extra == \"all\"",
+        "pydantic-extra-types>=2.0.0; extra == \"all\""
+      ],
+      "release_time": "2026-10-23T18:47:31.734776Z",
+      "project_urls": {
+        "Changelog": "https://fastapi.tiangolo.com/release-notes/",
+        "Documentation": "https://fastapi.tiangolo.com/",
+        "Homepage": "https://github.com/fastapi/fastapi",
+        "Issues": "https://github.com/fastapi/fastapi/issues",
+        "Repository": "https://github.com/fastapi/fastapi"
+      },
+      "sources": [
+        "https://pypi.org/pypi/fastapi/0.162.0/json",
+        "https://api.github.com/repos/fastapi/fastapi"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/fastapi-0-LICENSE",
+          "sha256": "4ec89ffc81485b97fec584b2d4a961032eeffe834453894fd9c1274906cc744e"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "pydantic-settings",
+      "repository": "https://github.com/pydantic/pydantic-settings",
+      "decision": "selected",
+      "module": "config",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded",
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "2.10.1",
+      "license": "MIT",
+      "license_classifiers": [
+        "License :: OSI Approved :: MIT License"
+      ],
+      "requires_python": ">=3.9",
+      "dependencies": [
+        "pydantic>=2.7.0",
+        "python-dotenv>=0.21.0",
+        "typing-inspection>=0.4.0",
+        "boto3-stubs[secretsmanager]; extra == \"aws-secrets-manager\"",
+        "boto3>=1.35.0; extra == \"aws-secrets-manager\"",
+        "azure-identity>=1.16.0; extra == \"azure-key-vault\"",
+        "azure-keyvault-secrets>=4.8.0; extra == \"azure-key-vault\"",
+        "google-cloud-secret-manager>=2.23.1; extra == \"gcp-secret-manager\"",
+        "tomli>=2.0.1; extra == \"toml\"",
+        "pyyaml>=6.0.1; extra == \"yaml\""
+      ],
+      "release_time": "2025-06-24T13:26:45.485832Z",
+      "project_urls": {
+        "Changelog": "https://github.com/pydantic/pydantic-settings/releases",
+        "Documentation": "https://docs.pydantic.dev/dev-v2/concepts/pydantic_settings/",
+        "Funding": "https://github.com/sponsors/samuelcolvin",
+        "Homepage": "https://github.com/pydantic/pydantic-settings",
+        "Source": "https://github.com/pydantic/pydantic-settings"
+      },
+      "sources": [
+        "https://pypi.org/pypi/pydantic-settings/2.10.1/json",
+        "https://api.github.com/repos/pydantic/pydantic-settings"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/pydantic-settings-0-LICENSE",
+          "sha256": "eb355a753e020346d33d83bf9769135b89fc610568ac531a01c295bcee7fd998"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "uvicorn",
+      "repository": "https://github.com/Kludex/uvicorn",
+      "decision": "selected",
+      "module": "api",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "0.54.0",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [],
+      "requires_python": ">=3.10",
+      "dependencies": [
+        "click>=7.0",
+        "h11>=0.8",
+        "typing-extensions>=4.0; python_version < \"3.11\"",
+        "httptools>=0.8.0; extra == \"standard\"",
+        "python-dotenv>=0.13; extra == \"standard\"",
+        "pyyaml>=5.1; extra == \"standard\"",
+        "uvloop>=0.15.1; (sys_platform != \"win32\" and (sys_platform != \"cygwin\" and platform_python_implementation != \"PyPy\")) and extra == \"standard\"",
+        "watchfiles>=0.20; extra == \"standard\"",
+        "websockets>=13.0; extra == \"standard\""
+      ],
+      "release_time": "2026-09-25T06:52:35.829563Z",
+      "project_urls": {
+        "Changelog": "https://uvicorn.dev/release-notes",
+        "Funding": "https://github.com/sponsors/Kludex",
+        "Homepage": "https://uvicorn.dev/",
+        "Source": "https://github.com/Kludex/uvicorn"
+      },
+      "sources": [
+        "https://pypi.org/pypi/uvicorn/0.54.0/json",
+        "https://api.github.com/repos/Kludex/uvicorn"
+      ],
+      "archived": false,
+      "pushed_at": "2026-11-01T07:08:10Z",
+      "repository_license": "BSD-3-Clause",
+      "default_branch": "main",
+      "license_files": [
+        {
+          "path": "third_party/licenses/uvicorn-0-LICENSE.md",
+          "sha256": "efe1acf3e62fb99c288b0ec73e5a773b7268ef4320fe757ea994214e4b63c371"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "SQLAlchemy",
+      "repository": "https://github.com/sqlalchemy/sqlalchemy",
+      "decision": "selected",
+      "module": "database",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Exact upstream tag not resolved: HTTP Error 422: Unprocessable Entity"
+      ],
+      "version": "2.0.57",
+      "license": "MIT",
+      "license_classifiers": [],
+      "requires_python": ">=3.7",
+      "dependencies": [
+        "importlib-metadata; python_version < \"3.8\"",
+        "greenlet>=1; platform_machine == \"aarch64\" or (platform_machine == \"ppc64le\" or (platform_machine == \"x86_64\" or (platform_machine == \"amd64\" or (platform_machine == \"AMD64\" or (platform_machine == \"win32\" or platform_machine == \"WIN32\")))))",
+        "typing-extensions>=4.6.0",
+        "greenlet>=1; extra == \"asyncio\"",
+        "mypy>=0.910; extra == \"mypy\"",
+        "pyodbc; extra == \"mssql\"",
+        "pymssql; extra == \"mssql-pymssql\"",
+        "pyodbc; extra == \"mssql-pyodbc\"",
+        "mysqlclient>=1.4.0; extra == \"mysql\"",
+        "mysql-connector-python; extra == \"mysql-connector\"",
+        "mariadb!=1.1.10,!=1.1.2,!=1.1.5,>=1.0.1; extra == \"mariadb-connector\"",
+        "cx_oracle>=8; extra == \"oracle\"",
+        "oracledb>=1.0.1; extra == \"oracle-oracledb\"",
+        "psycopg2>=2.7; extra == \"postgresql\"",
+        "pg8000>=1.29.1; extra == \"postgresql-pg8000\"",
+        "greenlet>=1; extra == \"postgresql-asyncpg\"",
+        "asyncpg; extra == \"postgresql-asyncpg\"",
+        "psycopg2-binary; extra == \"postgresql-psycopg2binary\"",
+        "psycopg2cffi; extra == \"postgresql-psycopg2cffi\"",
+        "psycopg>=3.0.7; extra == \"postgresql-psycopg\"",
+        "psycopg[binary]>=3.0.7; extra == \"postgresql-psycopgbinary\"",
+        "pymysql; extra == \"pymysql\"",
+        "greenlet>=1; extra == \"aiomysql\"",
+        "aiomysql>=0.2.0; extra == \"aiomysql\"",
+        "greenlet>=1; extra == \"aioodbc\"",
+        "aioodbc; extra == \"aioodbc\"",
+        "greenlet>=1; extra == \"asyncmy\"",
+        "asyncmy>=0.2.12; extra == \"asyncmy\"",
+        "greenlet>=1; extra == \"aiosqlite\"",
+        "aiosqlite; extra == \"aiosqlite\"",
+        "typing_extensions!=3.10.0.1; extra == \"aiosqlite\"",
+        "sqlcipher3_binary; extra == \"sqlcipher\""
+      ],
+      "release_time": "2026-11-04T00:58:47.151151Z",
+      "project_urls": {
+        "Documentation": "https://docs.sqlalchemy.org",
+        "Homepage": "https://www.sqlalchemy.org",
+        "Issue Tracker": "https://github.com/sqlalchemy/sqlalchemy/"
+      },
+      "sources": [
+        "https://pypi.org/pypi/SQLAlchemy/2.0.57/json",
+        "https://api.github.com/repos/sqlalchemy/sqlalchemy"
+      ],
+      "archived": false,
+      "pushed_at": "2026-11-19T21:09:16Z",
+      "repository_license": "MIT",
+      "default_branch": "main",
+      "license_files": [
+        {
+          "path": "third_party/licenses/SQLAlchemy-0-LICENSE",
+          "sha256": "e862bb5b904fb5513c3e14288d7a25a12eb0ecc7847a0a965d310e9a955e7cb9"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "psycopg",
+      "repository": "https://github.com/psycopg/psycopg",
+      "decision": "selected",
+      "module": "database",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded",
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "3.3.7",
+      "license": "LGPL-3.0-only",
+      "license_classifiers": [],
+      "requires_python": ">=3.10",
+      "dependencies": [
+        "typing-extensions>=4.6; python_version < \"3.13\"",
+        "tzdata; sys_platform == \"win32\"",
+        "psycopg-c==3.3.7; implementation_name != \"pypy\" and extra == \"c\"",
+        "psycopg-binary==3.3.7; implementation_name != \"pypy\" and extra == \"binary\"",
+        "psycopg-pool; extra == \"pool\"",
+        "anyio>=4.0; extra == \"test\"",
+        "mypy>=2.1.0; implementation_name != \"pypy\" and extra == \"test\"",
+        "pproxy>=2.7; extra == \"test\"",
+        "pytest>=6.2.5; extra == \"test\"",
+        "pytest-cov>=3.0; extra == \"test\"",
+        "pytest-randomly>=3.5; extra == \"test\"",
+        "ast-comments>=1.1.2; extra == \"dev\"",
+        "black>=26.1.0; extra == \"dev\"",
+        "codespell>=2.2; extra == \"dev\"",
+        "cython-lint>=0.21; extra == \"dev\"",
+        "dnspython>=2.1; extra == \"dev\"",
+        "flake8>=4.0; extra == \"dev\"",
+        "isort[colors]>=6.0; extra == \"dev\"",
+        "isort-psycopg>=0.0.3; extra == \"dev\"",
+        "mypy>=2.1.0; extra == \"dev\"",
+        "pre-commit>=4.0.1; extra == \"dev\"",
+        "types-setuptools>=57.4; extra == \"dev\"",
+        "types-shapely>=2.0; extra == \"dev\"",
+        "wheel>=0.37; extra == \"dev\"",
+        "Sphinx>=9.1; extra == \"docs\"",
+        "furo==2025.12.19; extra == \"docs\"",
+        "sphinx-autobuild>=2025.8.25; extra == \"docs\"",
+        "sphinx-autodoc-typehints>=3.10.2; extra == \"docs\""
+      ],
+      "release_time": "2026-11-03T03:51:21.090617Z",
+      "project_urls": {
+        "Changes": "https://psycopg.org/psycopg3/docs/news.html",
+        "Code": "https://github.com/psycopg/psycopg",
+        "Documentation": "https://psycopg.org/psycopg3/docs/",
+        "Funding": "https://github.com/sponsors/dvarrazzo",
+        "Homepage": "https://psycopg.org/",
+        "Issue Tracker": "https://github.com/psycopg/psycopg/issues"
+      },
+      "sources": [
+        "https://pypi.org/pypi/psycopg/3.3.7/json",
+        "https://api.github.com/repos/psycopg/psycopg"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/psycopg-0-LICENSE.txt",
+          "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "alembic",
+      "repository": "https://github.com/sqlalchemy/alembic",
+      "decision": "selected",
+      "module": "database",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded",
+        "Exact upstream tag not resolved: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "1.20.1",
+      "license": "MIT",
+      "license_classifiers": [],
+      "requires_python": ">=3.10",
+      "dependencies": [
+        "SQLAlchemy>=2.0",
+        "Mako",
+        "typing-extensions>=4.12",
+        "tomli; python_version < \"3.11\"",
+        "tzdata; extra == \"tz\""
+      ],
+      "release_time": "2026-10-22T03:24:35.930159Z",
+      "project_urls": {
+        "Changelog": "https://alembic.sqlalchemy.org/en/latest/changelog.html",
+        "Documentation": "https://alembic.sqlalchemy.org/en/latest/",
+        "Homepage": "https://alembic.sqlalchemy.org",
+        "Issue Tracker": "https://github.com/sqlalchemy/alembic/issues/",
+        "Source": "https://github.com/sqlalchemy/alembic/"
+      },
+      "sources": [
+        "https://pypi.org/pypi/alembic/1.20.1/json",
+        "https://api.github.com/repos/sqlalchemy/alembic"
+      ],
+      "license_files": [
+        {
+          "path": "third_party/licenses/alembic-0-LICENSE",
+          "sha256": "6e68d94a03a0e3e327ddf3e86d1ebedc14eece3922022618fc246a36296fd0cc"
+        }
+      ]
+    },
+    {
+      "ecosystem": "pypi",
+      "name": "httpx",
+      "repository": "https://github.com/encode/httpx",
+      "decision": "selected",
+      "module": "test",
+      "checked_at": "2026-11-20T15:39:58.821705+08:00",
+      "errors": [
+        "Repository metadata unavailable: HTTP Error 403: rate limit exceeded"
+      ],
+      "version": "0.28.1",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [
+        "License :: OSI Approved :: BSD License"
+      ],
+      "requires_python": ">=3.8",
+      "dependencies": [
+        "anyio",
+        "certifi",
+        "httpcore==1.*",
+        "idna",
+        "brotli; platform_python_implementation == \"CPython\" and extra == \"brotli\"",
+        "brotlicffi; platform_python_implementation != \"CPython\" and extra == \"brotli\"",
+        "click==8.*; extra == \"cli\"",
+        "pygments==2.*; extra == \"cli\"",
+        "rich<14,>=10; extra == \"cli\"",
+        "h2<5,>=3; extra == \"http2\"",
+        "socksio==1.*; extra == \"socks\"",
+        "zstandard>=0.18.0; extra == \"zstd\""
+      ],
+      "release_time": "2024-12-06T15:37:21.509172Z",
+      "project_urls": {
+        "Changelog": "https://github.com/encode/httpx/blob/master/CHANGELOG.md",
+        "Documentation": "https://www.python-httpx.org",
+        "Homepage": "https://github.com/encode/httpx",
+        "Source": "https://github.com/encode/httpx"
+      },
+      "sources": [
+        "https://pypi.org/pypi/httpx/0.28.1/json",
+        "https://api.github.com/repos/encode/httpx"
+      ],
+      "source_commit": "26d48e0634e6ee9cdc0533996db289ce4b430177",
+      "source_tag": "0.28.1",
+      "license_files": [
+        {
+          "path": "third_party/licenses/httpx-0-LICENSE.md",
+          "sha256": "4ec59d544f12b5f539a3a716fd321ac58ccd8030b465221f2c880200cdf28d8d"
+        }
+      ]
+    }
+  ],
+  "native_dependency_licenses": [
+    {
+      "name": "psycopg-binary",
+      "version": "3.3.7",
+      "license": "LGPL-3.0-only",
+      "license_files": [
+        {
+          "path": "third_party/licenses/psycopg-binary-LICENSE.txt",
+          "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+        }
+      ]
+    },
+    {
+      "name": "argon2-cffi-bindings",
+      "version": "26.1.0",
+      "license": "MIT",
+      "license_files": [
+        {
+          "path": "third_party/licenses/argon2-cffi-bindings-LICENSE",
+          "sha256": "88707653d5414f2242d597302a769565107ac139817b8ca321b3928cc1346c50"
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "backend/requirements.in": "a9ac6df54649dcb541726f1448f746e4b18347d122036e1059cf59f09888b360",
+    "backend/requirements.lock": "657c7371413d87dd47ae46efcb1d0e697d1902086e43bc47d0d536a054280205",
+    "web/package.json": "4a1b90a29c9d483e4d99a52f366dad72c25a8f7fc8c5d312d56020e51d79cb07",
+    "web/pnpm-lock.yaml": "3b296ee2c9306ea6f5633b594958e2297c38c301a778a7e0669fb2bf7a28109b",
+    "backend/Dockerfile": "9249eb958755ce2155ccf027b1308b500c508cbe7c1b49f8dc87f87610845fd9",
+    "nginx/Dockerfile": "74b000931cb9cacdc2f03a64530c51a0bbd481fd182d379af1cde0591c350d3f",
+    "docker-compose.yml": "c038a5802107fdcd521443b1699b310cadd7923853b50dd9c816a356f58ebdac",
+    "docker-compose.tls.yml": "80f380b2a6649f0aa1ef6a6679b52adff3ecf68fe58a592821a7babfd728f630"
+  }
+}

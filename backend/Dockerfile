@@ -10,6 +10,8 @@ COPY --from=builder /opt/venv /opt/venv
 WORKDIR /app/backend
 COPY backend/ /app/backend/
 COPY database/ /app/database/
+COPY third_party/licenses/ /app/third_party/licenses/
+COPY third_party/components.json /app/third_party/components.json
 RUN useradd --create-home --uid 1000 appuser && mkdir -p /app/backend/tmp && chown appuser:appuser /app/backend/tmp
 USER appuser
 EXPOSE 8000

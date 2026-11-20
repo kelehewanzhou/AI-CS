@@ -187,6 +187,8 @@ def main():
     account = subs.add_parser("create-account")
     account.add_argument("username")
     account.add_argument("role", choices=("student", "teacher"))
+    cleanup = subs.add_parser("cleanup", help="受控到期清理，参数传给 cli.cleanup；文件路径使用 /cleanup/")
+    cleanup.add_argument("arguments", nargs=argparse.REMAINDER)
     subs.add_parser("status")
     args = parser.parse_args()
     try:
@@ -207,6 +209,12 @@ def main():
             ops.compose("exec", *(["-T"] if args.yes else []), "postgres", "bash", "/opt/kglearn/restore.sh", args.file, *(["--yes"] if args.yes else []))
         elif args.action == "create-account":
             ops.compose("run", "--rm", "--no-deps", "-v", f"{ROOT / 'credentials'}:/app/backend/tmp", "migrate", "python", "-m", "cli.accounts", "create", "--username", args.username, "--role", args.role)
+        elif args.action == "cleanup":
+            cleanup_dir = RUNTIME / "cleanup"
+            cleanup_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+            identity = ["--user", f"{os.getuid()}:{os.getgid()}"] if os.name != "nt" else []
+            ops.compose("run", "--rm", "--no-deps", *identity, "-v", f"{cleanup_dir}:/cleanup",
+                        "migrate", "python", "-m", "cli.cleanup", *args.arguments)
         else:
             ops.compose("ps", "--all")
     except ValueError as exc:

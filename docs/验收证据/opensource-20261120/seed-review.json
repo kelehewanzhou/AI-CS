@@ -1,0 +1,19 @@
+{
+  "counts": {
+    "courses": 4,
+    "nodes": 5,
+    "edges": 3,
+    "exercises": 5
+  },
+  "schema_errors": 0,
+  "checksum": "a895ee8e19cdcd511dae3dc8761bafe72c935f501ff3161d275e402f6bd8c59b",
+  "approval_status": "approved",
+  "reviewed_at": "2024-11-15",
+  "checksum_matches": true,
+  "production_file_validation": {
+    "passed": true,
+    "scope": "file fields/date/checksum only; does not authenticate expert signature"
+  },
+  "expert_approval_authenticated": false,
+  "documentation_conflict": "approval says approved; seeds README says candidate pending confirmation"
+}

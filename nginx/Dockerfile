@@ -9,6 +9,8 @@ RUN pnpm build
 
 FROM nginx:1.30.6@sha256:42c68eab6f7e22611786a9fe1d1c019e275c50185bd54b8f75dc2b9184322703
 COPY --from=web /web/out/ /usr/share/nginx/html/
+COPY third_party/licenses/ /usr/share/nginx/html/third-party-licenses/
+COPY third_party/components.json /usr/share/nginx/html/third-party-licenses/components.json
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/templates/ /opt/kglearn/templates/
 COPY nginx/snippets/ /etc/nginx/snippets/

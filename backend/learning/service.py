@@ -119,14 +119,14 @@ class LearningService:
             target_nodes = list(dict.fromkeys(node_ids))
             if len(target_nodes) > 60:
                 raise AppException("VALIDATION_ERROR", "node_id最多支持60个", 422)
+            active_ids = {node.node_id for node in self.graph_repo.get_nodes_by_ids(target_nodes) if node.is_active}
             for node_id in target_nodes:
-                node = self.graph_repo.get_node_by_id(node_id)
-                if node is None or not node.is_active:
+                if node_id not in active_ids:
                     raise AppException("NOT_FOUND", f"节点{node_id}不存在", 404)
         else:
             target_nodes = [node.node_id for node in self.graph_repo.get_all_active_nodes()]
 
-        return [LearningRules.compute_state(user_id, node_id, self.db) for node_id in target_nodes]
+        return LearningRules.compute_states(user_id, target_nodes, self.db)
 
     def get_content_summary(self) -> dict[str, Any]:
         last_import = self.db.execute(

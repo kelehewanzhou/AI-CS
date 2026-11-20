@@ -26,9 +26,10 @@ function GraphContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryString = searchParams.toString();
+  const hasScope = Boolean(searchParams.get('node_id') || searchParams.get('course_code') || searchParams.get('q')?.trim());
   const [result, setResult] = useState<SubgraphResult | null>(null);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [courseCode, setCourseCode] = useState('');
   const [keyword, setKeyword] = useState('');
   const [hops, setHops] = useState('1');
@@ -47,14 +48,19 @@ function GraphContent() {
   useEffect(() => {
     if (!user) return;
     let active = true;
-    setLoading(true);
+    setResult(null);
     setError('');
+    if (!hasScope) {
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     getSubgraph(new URLSearchParams(queryString))
       .then((data) => { if (active) setResult(data); })
       .catch((reason) => { if (active) setError(reason instanceof ApiError ? reason.message : '网络错误，请稍后重试'); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [queryString, user]);
+  }, [queryString, user, hasScope]);
 
   function toggle(setter: (values: string[]) => void, values: string[], value: string) {
     setter(values.includes(value) ? values.filter((item) => item !== value) : [...values, value]);
@@ -81,7 +87,7 @@ function GraphContent() {
       <section className="panel">
         <form onSubmit={handleSubmit}>
           <div className="form-grid">
-            <label className="field"><span>课程</span><select value={courseCode} onChange={(event) => setCourseCode(event.target.value)}><option value="">全部课程</option><option value="DS">数据结构</option><option value="CO">计算机组成原理</option><option value="OS">操作系统</option><option value="CN">计算机网络</option></select></label>
+            <label className="field"><span>课程</span><select value={courseCode} onChange={(event) => setCourseCode(event.target.value)}><option value="">请选择课程或输入关键词</option><option value="DS">数据结构</option><option value="CO">计算机组成原理</option><option value="OS">操作系统</option><option value="CN">计算机网络</option></select></label>
             <label className="field"><span>搜索节点</span><input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="例如：TLB" maxLength={100} /></label>
             <label className="field"><span>关系跳数</span><select value={hops} onChange={(event) => setHops(event.target.value)}><option value="1">1 跳</option><option value="2">2 跳</option></select></label>
             <button className="button primary" type="submit">查询图谱</button>
@@ -91,6 +97,7 @@ function GraphContent() {
         </form>
       </section>
       <AskPanel />
+      {!hasScope && <EmptyState title="请先选择图谱范围" detail="选择一门课程或输入关键词后查询，每次最多展示 60 个节点和 120 条关系。" />}
       {loading && <LoadingState label="正在读取图谱数据…" />}
       {!loading && error && <ErrorState message={error} onRetry={() => window.location.reload()} />}
       {!loading && !error && result && <>
@@ -99,7 +106,7 @@ function GraphContent() {
           {result.nodes.length ? <GraphVisualization nodes={result.nodes} edges={result.edges} /> : <EmptyState title="没有找到匹配节点" detail="可以调整课程、关键词或关系过滤条件。" />}
           <div className="meta-strip"><span className="meta-pill">模式：{result.meta.mode}</span><span className="meta-pill">跳数：{result.meta.applied_hops}</span><span className="meta-pill checksum">种子：{result.meta.seed_checksum || '暂无'}</span></div>
         </section>
-        {!!result.edges.length && <section className="panel" style={{ marginTop: 20 }}><h2>关系清单</h2><div className="edge-list">{result.edges.map((edge) => <a className="edge-card" href={`/edge/?id=${encodeURIComponent(edge.edge_id)}`} key={edge.edge_id}><strong>{edge.source_title} → {edge.target_title}</strong><small>{edge.display_label} · {edge.evidence_status}</small></a>)}</div></section>}
+        {!!result.edges.length && <section className="panel" style={{ marginTop: 20 }}><h2>关系清单</h2><div className="edge-list">{result.edges.map((edge) => <a className="edge-card" href={`/edge/?id=${encodeURIComponent(edge.edge_id)}`} key={edge.edge_id}><strong>{edge.source_title} {edge.display_mode === 'directed' ? '→' : '—'} {edge.target_title}</strong><small>{edge.display_label} · {edge.evidence_status}</small></a>)}</div></section>}
       </>}
     </>
   );

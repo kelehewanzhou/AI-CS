@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--compose-executable", required=True, type=Path)
+    parser.add_argument("--output", type=Path, default=ROOT / "docs/验收证据/task9-compose.json")
     args = parser.parse_args()
     env = os.environ.copy()
     admin, app, migration = (secrets.token_hex(24) for _ in range(3))
@@ -39,7 +40,7 @@ def main():
     assert any(port["target"] == 443 for port in tls["services"]["nginx"]["ports"])
     version = subprocess.run([str(args.compose_executable), "version", "--short"], capture_output=True, encoding="utf-8", check=True).stdout.strip()
     record = {"compose_version": version, "base_config_valid": True, "tls_config_valid": True, "services": sorted(services), "dependency_order_verified": True, "internal_database_and_backend": True, "log_rotation_verified": True, "docker_daemon_execution": False}
-    target = ROOT / "docs/验收证据/task9-compose.json"
+    target = args.output
     target.parent.mkdir(exist_ok=True, parents=True)
     target.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     print(f"Compose {version}: base/TLS configuration, dependency order, network exposure and log rotation passed")

@@ -16,13 +16,16 @@ class LearningRules:
 
     @staticmethod
     def compute_state(user_id: UUID, node_id: str, db: Session) -> dict:
-        repo = LearningRepository(db)
-        available_count = repo.count_available_exercises(node_id)
+        return LearningRules.compute_states(user_id, [node_id], db)[0]
+
+    @staticmethod
+    def compute_states(user_id: UUID, node_ids: list[str], db: Session) -> list[dict]:
+        inputs = LearningRepository(db).get_state_inputs(user_id, node_ids)
+        return [LearningRules._compute_state(node_id, **inputs[node_id]) for node_id in node_ids]
+
+    @staticmethod
+    def _compute_state(node_id, available_count, evaluations, evaluation_count, total_attempts, has_viewed) -> dict:
         can_evaluate = available_count >= 3
-        evaluations = repo.list_evaluations(user_id, node_id)
-        evaluation_count = len(evaluations)
-        total_attempts = repo.count_attempts(user_id, node_id)
-        has_viewed = repo.has_learning_activity(user_id, node_id)
 
         if evaluation_count == 0:
             if has_viewed:
